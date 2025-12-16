@@ -48,3 +48,32 @@ Se pidió explícitamente el manejo de transacciones y excepciones para cumplir 
 ### Aprendizajes Obtenidos:
 - La diferencia entre `@Transactional` de lectura y escritura.
 - Cómo usar Derived Query Methods (ej: `findByDepartamentoNombre`) para evitar escribir JPQL manual en consultas simples.
+
+---
+
+## Prompt 3: Controladores REST y Perfiles de Base de Datos
+
+### Prompt Utilizado:
+"Genera los Controladores REST para Empleado, Departamento y Proyecto.
+1. Usa @RestController y @RequestMapping.
+2. Implementa todos los métodos CRUD usando los servicios creados anteriormente.
+3. Maneja ResponseEntity para devolver los status HTTP correctos (200 OK, 201 Created, 204 No Content).
+4. Agrega los endpoints específicos: buscar empleados por departamento y por rango de salario.
+   Además, dame la configuración YAML para 3 perfiles:
+- 'dev': H2 en memoria.
+- 'mysql': Conexión a MySQL local (puerto 3306).
+- 'postgres': Conexión a PostgreSQL local (puerto 5432)."
+
+### Respuesta Recibida:
+[Se recibieron las 3 clases Controller y los archivos application-*.yml correspondientes]
+
+### Modificaciones Realizadas:
+- Se ajustaron las cadenas de conexión JDBC en los perfiles de producción (mysql/postgres) para apuntar a `localhost` previendo el uso de Docker con puertos expuestos.
+- Se configuró `ddl-auto: update` para persistencia de datos y `create-drop` solo para desarrollo.
+
+### Explicación del Prompt:
+Necesitaba exponer la lógica de negocio a través de una API RESTful estándar y preparar la aplicación para conectarse a entornos containerizados sin cambiar el código Java, solo la configuración.
+
+### Aprendizajes Obtenidos:
+- Cómo usar `@RequestParam` vs `@PathVariable`.
+- La utilidad de los perfiles de Spring (`spring.profiles.active`) para cambiar de base de datos dinámicamente.
